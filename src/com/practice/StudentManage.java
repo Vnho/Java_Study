@@ -94,29 +94,9 @@ public class StudentManage {
         }
     }
 
-    // 删除学生方法
-    /*public static void deleteStudent(ArrayList<Student> array) {
-        // 键盘录入要删除的学生id
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("请输入要删除的学生id");
-        String sid = sc.nextLine();
-
-        // 遍历集合将对应学生对象从集合中删除
-        for (int i = 0; i < array.size(); i++) {
-            Student s = array.get(i);
-            if (s.getSid().equals(sid)) {
-                array.remove(i);
-                break;
-            }
-        }
-
-        // 给出提示删除成功
-        System.out.println("删除学生成功!");
-    }*/
 
     // 删除学生方法/查找id不存在
-    public static void deleteStudent(ArrayList<Student> array){
+    public static void deleteStudent(ArrayList<Student> array) {
         // 键盘输入要删除的学生学号,显示提示信息
         Scanner sc = new Scanner(System.in);
 
@@ -124,6 +104,23 @@ public class StudentManage {
         String sid = sc.nextLine();
 
         // 在删除/修改学生操作之前,对学号是否存在进行判断
+        // 如不存在,显示提示信息
+        // 如存在,执行删除/修改操作
+        int index = -1;
+        for (int i = 0; i < array.size(); i++) {
+            Student s = array.get(i);
+            if (s.getSid().equals(sid)) {
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) {
+            System.out.println("该信息不存在,请重新输入");
+        } else {
+            array.remove(index);
+            // 给出删除成功提示
+            System.out.println("删除学生成功!");
+        }
     }
 
     // 修改学生方法
@@ -133,31 +130,46 @@ public class StudentManage {
         System.out.println("请输入要修改的学生学号:");
         String sid = sc.nextLine();
 
-        // 键盘录入要修改的学生信息
-        System.out.println("请输入学生新姓名:");
-        String name = sc.nextLine();
-        System.out.println("请输入学生新年龄:");
-        String age = sc.nextLine();
-        System.out.println("请输入学生新地址:");
-        String address = sc.nextLine();
-
-        // 创建学生对象
-        Student s = new Student();
-        s.setSid(sid);
-        s.setName(name);
-        s.setAge(age);
-        s.setAddress(address);
-
-        // 遍历集合修改对应学生信息
+        int index = -1;
         for (int i = 0; i < array.size(); i++) {
-            Student student = array.get(i);
-            if (student.getSid().equals(sid)){
-                array.set(i,s);
+            Student s = array.get(i);
+            if (s.getSid().equals(sid)) {
+                index = i;
                 break;
             }
         }
 
-        // 给出修改成功提示
-        System.out.println("修改学生成功!");
+        if (index == -1){
+            System.out.println("该学生不存在,请重新输入!");
+        }else{
+            // 键盘录入要修改的学生信息
+            System.out.println("请输入学生新姓名:");
+            String name = sc.nextLine();
+            System.out.println("请输入学生新年龄:");
+            String age = sc.nextLine();
+            System.out.println("请输入学生新地址:");
+            String address = sc.nextLine();
+
+            // 创建学生对象
+            Student s = new Student();
+            s.setSid(sid);
+            s.setName(name);
+            s.setAge(age);
+            s.setAddress(address);
+
+            // 遍历集合修改对应学生信息
+            for (int i = 0; i < array.size(); i++) {
+                Student student = array.get(i);
+                if (student.getSid().equals(sid)) {
+                    array.set(i, s);
+                    break;
+                }
+            }
+            // 给出修改成功提示
+            System.out.println("修改学生成功!");
+        }
+
     }
+
+    // 判断学号是否被占用方法
 }
